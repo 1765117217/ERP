@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULU PADAS 隧道段应急响应预案 (ERP)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 加载 Lucide Icons (用于美化) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* 自定义主内容区域的滚动条 */
+        .scroll-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .scroll-container::-webkit-scrollbar-thumb {
+            background-color: #9ca3af; /* gray-400 */
+            border-radius: 4px;
+        }
+        .scroll-container {
+            scrollbar-width: thin;
+            scrollbar-color: #9ca3af #f3f4f6;
+        }
+        /* 侧边栏活动链接样式 */
+        .nav-link.active {
+            font-weight: 700;
+            color: #005CB8; /* 主企业蓝 */
+            border-left-color: #005CB8; /* 主企业蓝 */
+            background-color: #eff6ff; /* blue-50 */
+        }
+        /* 标题边框颜色设置为企业蓝 */
+        .main-title-border {
+            border-bottom-color: #005CB8;
+        }
+        .chapter-title-border {
+            border-left-color: #005CB8;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-safe': '#005CB8', // 企业Logo的明亮蓝色
+                        'corporate-deep-blue': '#002C5E', // 侧边栏/Logo背景的深蓝色
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 antialiased">
+
+    <!-- 顶栏标题 (移动端可见) -->
+    <header class="lg:hidden p-4 bg-white shadow sticky top-0 z-10">
+        <h1 class="text-xl font-bold text-primary-safe">隧道段 ERP</h1>
+    </header>
+
+    <div class="flex">
+        
+        <!-- 左侧导航栏 / 目录 (桌面端固定) -->
+        <aside id="toc-sidebar" class="hidden lg:block w-72 bg-white h-screen sticky top-0 shadow-lg overflow-y-auto pt-8 pb-12">
+            <div class="px-6 mb-8 border-b pb-4">
+                <h2 class="text-2xl font-extrabold text-corporate-deep-blue">应急预案目录</h2>
+                <p class="text-sm text-gray-500 mt-1">Section 2 隧道段</p>
+            </div>
+            <nav class="space-y-1">
+                <a href="#chap1" class="nav-link block px-6 py-2 text-gray-700 hover:bg-blue-50 hover:text-primary-safe transition duration-150 border-l-4 border-transparent">
+                    <span class="font-bold">1.0</span> 引言
+                </a>
+                <a href="#chap2" class="nav-link block px-6 py-2 text-gray-700 hover:bg-blue-50 hover:text-primary-safe transition duration-150 border-l-4 border-transparent">
+                    <span class="font-bold">2.0</span> 组织与指挥架构
+                </a>
+                <a href="#chap3" class="nav-link block px-6 py-2 text-gray-700 hover:bg-blue-50 hover:text-primary-safe transition duration-150 border-l-4 border-transparent">
+                    <span class="font-bold">3.0</span> 事故通报与通信流程
+                </a>
+                <a href="#chap4" class="nav-link block px-6 py-2 text-gray-700 hover:bg-blue-50 hover:text-primary-safe transition duration-150 border-l-4 border-transparent">
+                    <span class="font-bold">4.0</span> 撤离与救援方案 (SOP)
+                </a>
+                <a href="#chap5" class="nav-link block px-6 py-2 text-gray-700 hover:bg-blue-50 hover:text-primary-safe transition duration-150 border-l-4 border-transparent">
+                    <span class="font-bold">5.0</span> 典型紧急情景与响应措施
+                </a>
+                <a href="#chap6" class="nav-link block px-6 py-2 text-gray-700 hover:bg-blue-50 hover:text-primary-safe transition duration-150 border-l-4 border-transparent">
+                    <span class="font-bold">6.0</span> 预防措施与监测
+                </a>
+                <a href="#chap7" class="nav-link block px-6 py-2 text-gray-700 hover:bg-blue-50 hover:text-primary-safe transition duration-150 border-l-4 border-transparent">
+                    <span class="font-bold">7.0</span> 物资、资源与后勤
+                </a>
+                <a href="#chap8" class="nav-link block px-6 py-2 text-gray-700 hover:bg-blue-50 hover:text-primary-safe transition duration-150 border-l-4 border-transparent">
+                    <span class="font-bold">8.0</span> 培训、演练与能力
+                </a>
+                <a href="#chap9" class="nav-link block px-6 py-2 text-gray-700 hover:bg-blue-50 hover:text-primary-safe transition duration-150 border-l-4 border-transparent">
+                    <span class="font-bold">9.0</span> 文档与报告
+                </a>
+                <a href="#chap10" class="nav-link block px-6 py-2 text-gray-700 hover:bg-blue-50 hover:text-primary-safe transition duration-150 border-l-4 border-transparent">
+                    <span class="font-bold">10.0</span> 建议与结论
+                </a>
+                <a href="#appendices" class="nav-link block px-6 py-2 text-gray-700 hover:bg-blue-50 hover:text-primary-safe transition duration-150 border-l-4 border-transparent">
+                    <span class="font-bold">附录</span> 条目
+                </a>
+            </nav>
+        </aside>
+
+        <!-- 右侧主内容区域 -->
+        <main id="main-content" class="flex-1 p-4 sm:p-8 lg:p-12 scroll-container overflow-y-auto">
+
+            <!-- 报告封面/主标题 -->
+            <div class="bg-white p-6 sm:p-10 md:p-16 shadow-xl rounded-xl mb-12">
+                <header class="text-center pb-6 main-title-border border-b-4">
+                    <p class="text-xl text-gray-600 font-medium tracking-wider">马来西亚上巴达斯水电站联营体项目 | 第二分部</p>
+                    <h1 class="text-5xl lg:text-6xl font-extrabold text-corporate-deep-blue mt-3">应急响应预案（ERP）</h1>
+                    <h2 class="text-2xl lg:text-3xl font-light text-gray-700 mt-2">隧道工程段 — 主报告</h2>
+                    <div class="mt-6 text-lg text-gray-600 space-y-1">
+                        <p><span class="font-semibold text-gray-800">编制单位：</span>中交二公局第二工程有限公司（Section 2 隧道段）</p>
+                        <p><span class="font-semibold text-gray-800">项目地点：</span>沙巴 · <span class="text-red-600 font-bold">丹南 (Tenom)</span></p>
+                    </div>
+                </header>
+            </div>
+
+
+            <!-- === 1. 第1章 引言（INTRODUCTION） === -->
+            <section id="chap1" class="report-section mb-16 bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-8 chapter-title-border border-l-4 pl-4 py-1">1.0 第1章 引言（INTRODUCTION）</h2>
+
+                <article class="space-y-8">
+                    <!-- 1.1 项目背景 -->
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-3 flex items-center"><i data-lucide="map-pin" class="w-6 h-6 mr-2"></i> 1.1 项目背景</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4 pl-8">
+                            Ulu Padas 水电项目位于马来西亚沙巴州丹南（Tenom），由 CCCC–CWE 联合体实施。中交二公局第二工程有限公司（二分部，Section 2）负责隧道工程段施工。隧道工程具有密闭、线性、长距离、交叉专业多等特性，存在火灾与烟雾、坍塌与落石、突涌水、爆破事故、车辆设备事故、触电/停电、气体危害等风险。为保障人员生命安全、财产及环境，本应急响应预案（ERP）特编制实施。
+                        </p>
+                        <div class="bg-red-50 p-4 border-l-4 border-red-500 rounded-lg shadow-sm">
+                            <p class="text-red-700 font-medium">隧道工程主要风险特性：</p>
+                            <ul class="list-disc list-inside text-red-600 text-sm mt-2 pl-4 grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <li>密闭、线性、长距离、交叉专业多</li>
+                                <li>火灾与烟雾、坍塌与落石</li>
+                                <li>突涌水、爆破事故、车辆设备事故</li>
+                                <li>触电/停电、气体危害等</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 1.2 隧道工程描述 -->
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-3 flex items-center"><i data-lucide="tunnels" class="w-6 h-6 mr-2"></i> 1.2 隧道工程描述</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 p-4 rounded-lg border">
+                                <p class="font-semibold text-gray-800">西口（West Portal）</p>
+                                <p class="text-gray-600 text-sm">隧道掘进、支护、通风、供电及衬砌主要作业面与出入口。</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border">
+                                <p class="font-semibold text-gray-800">基地营地（Base Camp）</p>
+                                <p class="text-gray-600 text-sm">办公、生活、医疗点与集合点；设 OSCP（现场指挥点）、仓库、器材间。</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border">
+                                <p class="font-semibold text-gray-800">施工便道</p>
+                                <p class="text-gray-600 text-sm">人员/材料/机械运输主通道，设置限速与错车点。</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border">
+                                <p class="font-semibold text-gray-800">3#拌合站</p>
+                                <p class="text-gray-600 text-sm">承担喷射混凝土及衬砌混凝土供应，配化学品及柴油（设置二次围堰/防渗措施）。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 1.3 预案目的与目标 -->
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-3 flex items-center"><i data-lucide="target" class="w-6 h-6 mr-2"></i> 1.3 预案目的与目标</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-bold text-lg mb-2 text-gray-800">目的 (Objective)</h4>
+                                <p class="bg-blue-50 p-3 rounded-md border-l-4 border-primary-safe text-primary-safe">
+                                    建立一套可执行、可联动、可追溯的应急管理体系。
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2 text-gray-800">核心目标 (Goals)</h4>
+                                <ul class="list-decimal list-inside text-gray-600 space-y-1 pl-4">
+                                    <li>保护所有人员生命与健康；</li>
+                                    <li>降低财产/工期/环境损失；</li>
+                                    <li>明确报告—通知—撤离—救援—医疗—善后—复工流程；</li>
+                                    <li>与外部机构（Bomba/Police/医院/DOSH 等）有效联动；</li>
+                                    <li>明确二分部（Section 2）内部职责分工与指挥链；</li>
+                                    <li>满足马来西亚法律法规与业主/联合体要求。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 1.4 适用范围 -->
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-3 flex items-center"><i data-lucide="check-square" class="w-6 h-6 mr-2"></i> 1.4 适用范围</h3>
+                        <p class="text-gray-700 font-medium mb-3">适用区域（Section 2 覆盖）：</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">西口</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">施工便道</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">爆破库/作业区</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">3#拌合站</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">基地营地</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">设备场与供配电区域</span>
+                        </div>
+                        <p class="text-gray-700 font-medium mb-3 mt-4">适用事件（涵盖）：</p>
+                        <ul class="list-disc list-inside text-gray-600 text-sm pl-4 grid grid-cols-1 md:grid-cols-3 gap-2">
+                            <li>火灾/爆炸、坍塌/落石、突涌水/内涝</li>
+                            <li>爆破事故/哑炮、车辆/设备事故</li>
+                            <li>触电/停电、气体危害（CO/NOx/O₂）</li>
+                            <li>极端天气、地震以及其他紧急事件</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 1.5 法规与标准框架 -->
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-3 flex items-center"><i data-lucide="gavel" class="w-6 h-6 mr-2"></i> 1.5 法规与标准框架</h3>
+                        <p class="text-gray-600 mb-2">遵循并不低于以下要求：</p>
+                        <ul class="list-disc list-inside text-gray-600 pl-4 space-y-1">
+                            <li>OSHA 1994, FMA 1967, Fire Services Act 1988；</li>
+                            <li>ICOP 2010（密闭空间）；</li>
+                            <li>NSC Directive No.20（国家安全理事会第20号令，灾害管理机制）；</li>
+                            <li>DOSH Sabah 应急与报告指南；</li>
+                            <li>EQA 1974（环境质量法）及项目环保要求。</li>
+                        </ul>
+                    </div>
+
+                    <!-- 1.6 组织与职责 -->
+                    <div class="pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-3 flex items-center"><i data-lucide="users-2" class="w-6 h-6 mr-2"></i> 1.6 组织与职责（Section 2）</h3>
+                        <p class="text-gray-600 font-medium mb-4">核心岗位职责概览：</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <!-- 岗位卡片 -->
+                            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                                <p class="font-bold text-yellow-800 flex items-center"><i data-lucide="crown" class="w-5 h-5 mr-1"></i> 项目经理 (IC)</p>
+                                <p class="text-sm text-yellow-700 mt-1">总指挥；启动 ERP/OSCP；决策分级（预警/待命/紧急）；对外协调与批准复工。</p>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                                <p class="font-bold text-blue-800 flex items-center"><i data-lucide="shield-check" class="w-5 h-5 mr-1"></i> HSE 经理</p>
+                                <p class="text-sm text-blue-700 mt-1">应急协调；组织 ERT、训练演练、风险评估与对外报备。</p>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                                <p class="font-bold text-green-800 flex items-center"><i data-lucide="activity" class="w-5 h-5 mr-1"></i> SSS (安全监督)</p>
+                                <p class="text-sm text-green-700 mt-1">报警/通知、撤离引导、通信管制、出勤与缺位统计、时间线记录。</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border">
+                                <p class="font-bold text-gray-800">副经理 (副 IC)</p>
+                                <p class="text-sm text-gray-600 mt-1">后勤统筹；资源调配、抢险物资与车辆、临时供电与照明。</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border">
+                                <p class="font-bold text-gray-800">医疗/急救员</p>
+                                <p class="text-sm text-gray-600 mt-1">现场急救、分诊、救护车联络与移交。</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border">
+                                <p class="font-bold text-gray-800">联络官</p>
+                                <p class="text-sm text-gray-600 mt-1">对接 Bomba/Police/医院/APM/DOSH；资料与地图提供。</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-xs mt-4">注意：内部/外部联系清单详见附录 A（需填入真实号码，并保持 24/7 可达）。</p>
+                    </div>
+
+                    <!-- 1.7 修订与受控 -->
+                    <div class="pt-4 border-t">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-3 flex items-center"><i data-lucide="edit-3" class="w-6 h-6 mr-2"></i> 1.7 修订与受控</h3>
+                        <p class="text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">
+                            本预案为<span class="font-bold text-red-600">受控文件</span>。发生现场布置/工艺变更、演练/事故经验、法规更新时修订。由 HSE 经理组织评审，IC 批准发布，回收作废版本。
+                        </p>
+                    </div>
+                </article>
+            </section>
+
+
+            <!-- === 2. 第2章 应急组织与指挥架构 === -->
+            <section id="chap2" class="report-section mb-16 bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-8 chapter-title-border border-l-4 pl-4 py-1">2.0 第2章 应急组织与指挥架构</h2>
+
+                <article class="space-y-8">
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-3">2.1 & 2.2 ERT 组织与架构</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4 pl-4 border-l-2 border-gray-200">
+                            建立应急响应队（ERT），满足 OSHA/ICOP/NSC No.20 要求，确保第一响应与外部联动顺畅。组织结构：
+                            <span class="font-bold text-primary-safe block mt-2">IC → 副 IC → HSE 经理 →（SSS/消防/救援/医疗/安保/联络/后勤/电气通风）岗位。</span>
+                            （附录 B 给出组织结构图。）
+                        </p>
+                    </div>
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-3">2.4 指挥链与通信层级</h3>
+                        <p class="text-gray-600 leading-relaxed pl-4 border-l-2 border-gray-200">
+                            **指挥链：** <span class="font-bold">工人/班组长 → SSS → HSE 经理 → IC。</span>
+                            **通信原则：** 外部信息统一由联络官对外发布，避免多头对外口径。
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-3">2.5 重要联络方式（内部/外部）</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="px-4 py-2 border-b text-left text-sm font-semibold text-gray-800">机构/岗位</th>
+                                        <th class="px-4 py-2 border-b text-left text-sm font-semibold text-gray-800">地点/职责</th>
+                                        <th class="px-4 py-2 border-b text-left text-sm font-semibold text-gray-800">联系号码 (MOCKUP)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover:bg-red-50">
+                                        <td class="px-4 py-2 border-b font-medium text-red-600">Bomba (消防)</td>
+                                        <td class="px-4 py-2 border-b">Tenom</td>
+                                        <td class="px-4 py-2 border-b text-red-700 font-mono">[填写] 994 / (087) XXXX</td>
+                                    </tr>
+                                    <tr class="hover:bg-red-50">
+                                        <td class="px-4 py-2 border-b font-medium text-red-600">Tenom 医院/救护车</td>
+                                        <td class="px-4 py-2 border-b">救护车服务</td>
+                                        <td class="px-4 py-2 border-b text-red-700 font-mono">[填写] 999 / (087) XXXX</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 border-b">Police (IPD Tenom)</td>
+                                        <td class="px-4 py-2 border-b">警察局</td>
+                                        <td class="px-4 py-2 border-b font-mono">[填写] 999 / (087) XXXX</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 border-b">DOSH Sabah</td>
+                                        <td class="px-4 py-2 border-b">职安卫局</td>
+                                        <td class="px-4 py-2 border-b font-mono">[填写]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 border-b font-medium text-primary-safe">项目经理 (IC)</td>
+                                        <td class="px-4 py-2 border-b">总指挥</td>
+                                        <td class="px-4 py-2 border-b font-mono">[填写] 24/7 可达</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+
+            <!-- === 3. 第3章 事故通报与通信流程 === -->
+            <section id="chap3" class="report-section mb-16 bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-8 chapter-title-border border-l-4 pl-4 py-1">3.0 第3章 事故通报与通信流程</h2>
+
+                <article class="space-y-8">
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-4">3.1 通知流程（分步执行）</h3>
+                        <ol class="list-decimal list-outside text-gray-700 font-medium space-y-3 pl-6">
+                            <li class="pl-2">**发现人：** → 就近报警（对讲机+警报器）并告知位置/险情/人数。</li>
+                            <li class="pl-2">**SSS：** → 通知 HSE 经理并拉响现场警报。</li>
+                            <li class="pl-2">**HSE：** → 报告 IC；IC 判定<span class="text-primary-safe font-bold">预警/待命/紧急</span>级别。</li>
+                            <li class="pl-2">**指挥部：** → 启动 OSCP（现场指挥点），各专业组集结。</li>
+                            <li class="pl-2">**联络官：** → 对接外部单位（Bomba/Police/医院/APM/DOSH）。</li>
+                            <li class="pl-2">**各班组：** → 集合点清点与上报缺位（含 LSP：最后见到点）。</li>
+                        </ol>
+                    </div>
+
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-4">3.2 报告要求与时限</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-yellow-100 p-4 rounded-lg text-center border-b-4 border-yellow-500">
+                                <p class="text-5xl font-extrabold text-yellow-700">30 min</p>
+                                <p class="font-bold text-lg mt-1 text-yellow-800">初报 (Initial)</p>
+                                <p class="text-sm text-yellow-700">地点、类型、伤情、初处置、需求。</p>
+                            </div>
+                            <div class="bg-yellow-100 p-4 rounded-lg text-center border-b-4 border-yellow-500">
+                                <p class="text-5xl font-extrabold text-yellow-700">2 hrs</p>
+                                <p class="font-bold text-lg mt-1 text-yellow-800">续报 (Follow-up)</p>
+                                <p class="text-sm text-yellow-700">态势发展、风险评估、资源动员。</p>
+                            </div>
+                            <div class="bg-yellow-100 p-4 rounded-lg text-center border-b-4 border-yellow-500">
+                                <p class="text-5xl font-extrabold text-yellow-700">24 hrs</p>
+                                <p class="font-bold text-lg mt-1 text-yellow-800">终报 (Final)</p>
+                                <p class="text-sm text-yellow-700">原因分析、CAPA、照片/图纸/记录。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-4">3.4 启动分级</h3>
+                        <div class="space-y-4 pl-4 border-l-2 border-gray-200">
+                            <div class="bg-blue-50 p-3 rounded-md">
+                                <span class="font-bold text-primary-safe">预警：</span>指标异常（气体、能见度、渗漏、雨量）。
+                            </div>
+                            <div class="bg-orange-50 p-3 rounded-md">
+                                <span class="font-bold text-orange-700">待命：</span>风险显著、部分人员撤离、救援队前置。
+                            </div>
+                            <div class="bg-red-50 p-3 rounded-md">
+                                <span class="font-bold text-red-700">紧急：</span>危及生命/财产，全面撤离与外部联动。
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+
+            <!-- === 4. 第4章 撤离与救援方案（SOP） === -->
+            <section id="chap4" class="report-section mb-16 bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-8 chapter-title-border border-l-4 pl-4 py-1">4.0 第4章 撤离与救援方案（SOP）</h2>
+
+                <article class="space-y-8">
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-4 flex items-center"><i data-lucide="clock" class="w-6 h-6 mr-2"></i> 4.1 隧道与地面撤离程序（时间轴）</h3>
+                        <ol class="list-none space-y-3">
+                            <li class="bg-gray-50 p-3 rounded-md border-l-4 border-red-500">
+                                <span class="font-bold text-red-600">T+0–1 分：</span> 发现人报警（位置/险情/人数），班组长停止作业。
+                            </li>
+                            <li class="bg-gray-50 p-3 rounded-md border-l-4 border-orange-500">
+                                <span class="font-bold text-orange-600">T+1–3 分：</span> SSS 组织就近撤离（逆烟、向高处/洞外），授权电工在安全条件下 LOTO 断电。
+                            </li>
+                            <li class="bg-gray-50 p-3 rounded-md border-l-4 border-yellow-500">
+                                <span class="font-bold text-yellow-600">T+3–5 分：</span> HSE 设 OSCP；IC 判级；安保封控道路，<span class="font-semibold">上行入洞=救援，下行出洞=撤离/救护。</span>
+                            </li>
+                            <li class="bg-gray-50 p-3 rounded-md border-l-4 border-green-500">
+                                <span class="font-bold text-green-600">T+5–10 分：</span> 队伍到 MP-1/MP-2 集合，清点并上报缺位与 LSP。
+                            </li>
+                            <li class="bg-gray-50 p-3 rounded-md border-l-4 border-primary-safe">
+                                <span class="font-bold text-primary-safe">T+10–15 分：</span> IC 视情请求外援，派出消防/救援/医疗/后勤小队。
+                            </li>
+                        </ol>
+                        <p class="text-gray-500 text-sm mt-3">**记录：** SSS 填写《应急处置时间线记录表》，每 10–15 分钟更新。</p>
+                    </div>
+
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-4">4.7 撤离后复工与复入（六项必检）</h3>
+                        <div class="bg-green-100 p-4 rounded-lg border-l-4 border-green-500">
+                            <p class="font-bold text-green-700 mb-2 flex items-center"><i data-lucide="list-checks" class="w-5 h-5 mr-1"></i> IC 签署“解除警报”前必须完成的六项检查：</p>
+                            <ul class="list-decimal list-outside text-gray-700 space-y-1 pl-6">
+                                <li>危险源解除（火熄/气体达标/水退）；</li>
+                                <li>气体达标（O₂ 19.5–23.5%，CO <50 ppm，NOx <5 ppm）；</li>
+                                <li>结构安全（工程师确认）；</li>
+                                <li>电气安全（LOTO 解除经授权）；</li>
+                                <li>条件具备（通道/照明/通风/通信恢复）；</li>
+                                <li>IC 签署“解除警报”，归档 OSCP 记录。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+
+            <!-- === 5. 第5章 典型紧急情景与响应措施（SOP） === -->
+            <section id="chap5" class="report-section mb-16 bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-8 chapter-title-border border-l-4 pl-4 py-1">5.0 第5章 典型紧急情景与响应措施（SOP）</h2>
+                
+                <article class="space-y-8">
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-4 flex items-center"><i data-lucide="flame" class="w-6 h-6 mr-2 text-red-500"></i> 5.1 隧道火灾与烟雾 - 通风策略</h3>
+                        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500 space-y-2">
+                            <p><span class="font-bold text-red-700">掌子面起火：</span>增大抽排、减少回流、开烟气阀。</p>
+                            <p><span class="font-bold text-red-700">中段起火：</span>必要时反向通风，将烟推向最近洞口。</p>
+                            <p><span class="font-bold text-red-700">近洞口起火：</span>保持外排，必要时启水幕保护入口。</p>
+                        </div>
+                        <p class="text-gray-600 mt-4">**处置核心：** 非必要人员逆烟撤离，设 50 m 警戒；授权电工安全断电（LOTO）；**消防组（SCBA）**上风向接近灭火。</p>
+                    </div>
+
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-4 flex items-center"><i data-lucide="gas-can" class="w-6 h-6 mr-2"></i> 5.7 气体与密闭空间监测阈值</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-yellow-50 border border-yellow-200 rounded-lg">
+                                <thead class="bg-yellow-200">
+                                    <tr>
+                                        <th class="px-4 py-2 border-b text-left text-sm font-semibold text-gray-800">指标</th>
+                                        <th class="px-4 py-2 border-b text-left text-sm font-semibold text-gray-800">预警（Action）</th>
+                                        <th class="px-4 py-2 border-b text-left text-sm font-semibold text-gray-800">紧急撤离（Immediate Evacuation）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover:bg-yellow-100">
+                                        <td class="px-4 py-2 border-b font-semibold">O₂ (氧气)</td>
+                                        <td class="px-4 py-2 border-b text-sm">低于 19.5% 或 高于 23.5%</td>
+                                        <td class="px-4 py-2 border-b text-sm">低于 19.5% 或 高于 23.5% (SCBA 入内救援)</td>
+                                    </tr>
+                                    <tr class="hover:bg-yellow-100">
+                                        <td class="px-4 py-2 border-b font-semibold">CO (一氧化碳)</td>
+                                        <td class="px-4 py-2 border-b text-sm">≥ 25–30 ppm</td>
+                                        <td class="px-4 py-2 border-b text-sm">≥ 50 ppm</td>
+                                    </tr>
+                                    <tr class="hover:bg-yellow-100">
+                                        <td class="px-4 py-2 border-b font-semibold">NOx (氮氧化物)</td>
+                                        <td class="px-4 py-2 border-b text-sm">≥ 3 ppm</td>
+                                        <td class="px-4 py-2 border-b text-sm">≥ 5 ppm</td>
+                                    </tr>
+                                    <tr class="hover:bg-yellow-100">
+                                        <td class="px-4 py-2 border-b font-semibold">能见度</td>
+                                        <td class="px-4 py-2 border-b text-sm">< 50 m</td>
+                                        <td class="px-4 py-2 border-b text-sm">< 20 m (必撤)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="border-b pb-4">
+                        <h3 class="text-2xl font-semibold text-primary-safe mb-4 flex items-center"><i data-lucide="droplets" class="w-6 h-6 mr-2"></i> 5.3 突涌水/内涝</h3>
+                        <ul class="list-disc list-inside text-gray-600 pl-4 space-y-1">
+                            <li>撤至高处/洞外；启动 N+1 泵；沙袋分流。</li>
+                            <li>若入流超阈值立即升为“紧急”；封控道路与气象联络。</li>
+                            <li>稳定与抽排达标后方可复工。</li>
+                        </ul>
+                    </div>
+                </article>
+            </section>
+
+
+            <!-- === 6. 第6章 预防措施与监测 === -->
+            <section id="chap6" class="report-section mb-16 bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-8 chapter-title-border border-l-4 pl-4 py-1">6.0 第6章 预防措施与监测</h2>
+
+                <article class="space-y-6">
+                    <h3 class="text-2xl font-semibold text-primary-safe mb-3">6.6 停工与隔离（LOTO）</h3>
+                    <p class="text-gray-600 font-medium">触发：气体超限/火灾烟雾/结构异常/涌水/极端天气。</p>
+                    <p class="bg-red-50 p-3 rounded-md border-l-4 border-red-500 text-red-700">
+                        措施：<span class="font-bold">LOTO + 警戒 + 公告</span>；复工前班前交底并经 IC 书面批准。
+                    </p>
+                </article>
+            </section>
+
+
+            <!-- === 7. 第7章 物资、资源与后勤 === -->
+            <section id="chap7" class="report-section mb-16 bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-8 chapter-title-border border-l-4 pl-4 py-1">7.0 第7章 物资、资源与后勤</h2>
+                <h3 class="text-2xl font-semibold text-primary-safe mb-4">7.2 应急装备清单（最小配置）</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="font-bold text-gray-800 mb-2">呼吸与医疗</p>
+                        <ul class="list-disc list-inside text-gray-600 pl-4 text-sm">
+                            <li>SCBA ≥ 6 套（周检+用后检）</li>
+                            <li>担架（脊柱板）≥ 3（每月）</li>
+                            <li>AED ≥ 1 台（月检电池）</li>
+                            <li>便携照明 ≥ 6（周充）</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="font-bold text-gray-800 mb-2">消防与抢险</p>
+                        <ul class="list-disc list-inside text-gray-600 pl-4 text-sm">
+                            <li>灭火器 DCP/CO₂（按布置，月检+年检）</li>
+                            <li>消火栓/水带（季度压测）</li>
+                            <li>柴油泵（自吸/潜污）<span class="font-bold text-primary-safe">N+1 冗余</span>（每月试运）</li>
+                            <li>发电机 ≥ 1（每月带载试验）</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- === 8. 第8章 培训、演练与能力 === -->
+            <section id="chap8" class="report-section mb-16 bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-8 chapter-title-border border-l-4 pl-4 py-1">8.0 第8章 培训、演练与能力</h2>
+                
+                <h3 class="text-2xl font-semibold text-primary-safe mb-4">8.2 演练与模拟（频次示例）</h3>
+                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-primary-safe">
+                    <ul class="list-disc list-inside text-primary-safe space-y-1 font-medium pl-4">
+                        <li>**综合 ERP 演练：** 季度 (HSE 牵头)</li>
+                        <li>**火灾与烟雾撤离：** 每月 (消防组牵头)</li>
+                        <li>**坍塌救援（SCBA/绳索）：** 双月 (救援组牵头)</li>
+                        <li>**医疗（急救/AED/救护）：** 季度 (医疗牵头)</li>
+                        <li>**与外部联合演练：** 每年至少 1 次 (Bomba/Police/医院/APM/DOSH)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- === 9. 第9章 文档与报告 === -->
+            <section id="chap9" class="report-section mb-16 bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-8 chapter-title-border border-l-4 pl-4 py-1">9.0 第9章 文档与报告</h2>
+                
+                <h3 class="text-2xl font-semibold text-primary-safe mb-4">9.4 调查与根因分析</h3>
+                <p class="text-gray-600 leading-relaxed mb-4 pl-4 border-l-2 border-gray-200">
+                    采用 **5Why / 鱼骨图 / 屏障分析 / 时间轴**；提出纠正预防措施（CAPA），明确责任与期限。
+                </p>
+            </section>
+
+            <!-- === 10. 第10章 建议与结论 === -->
+            <section id="chap10" class="report-section mb-16 bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-8 chapter-title-border border-l-4 pl-4 py-1">10.0 第10章 建议与结论</h2>
+
+                <article class="space-y-6">
+                    <h3 class="text-2xl font-semibold text-primary-safe mb-3">10.1 关键结论</h3>
+                    <div class="bg-green-50 p-4 border-l-4 border-green-500 rounded-lg text-green-800 font-bold">
+                        有效的应急准备依赖明确职责、常态化演练、设备完好、畅通联络与一页化流程图。
+                    </div>
+                    <h3 class="text-2xl font-semibold text-primary-safe mb-3 pt-4 border-t">10.2 改进建议</h3>
+                    <ul class="list-decimal list-inside text-gray-700 space-y-1 pl-4">
+                        <li>快速补齐演练发现的问题。</li>
+                        <li>维持泵/SCBA/AED 完好和可操作性。</li>
+                        <li>强化夜间与极端天气值守。</li>
+                        <li>完善地图、标识与疏散照明。</li>
+                    </ul>
+                </article>
+            </section>
+
+            <!-- === 附录（建议条目） === -->
+            <section id="appendices" class="report-section mb-16 bg-white p-6 rounded-xl shadow-lg">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-8 chapter-title-border border-l-4 pl-4 py-1">附录（建议条目）</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
+                        <p class="font-bold">附录 A：紧急联络清单</p>
+                        <p class="text-sm">（内外部：Bomba、Tenom 医院、IC/HSE/SSS 等，需填入真实号码）</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
+                        <p class="font-bold">附录 B：ERT 组织结构图</p>
+                        <p class="text-sm">（Section 2 二分部，含替补与联系方式）</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
+                        <p class="font-bold">附录 C：应急流程图</p>
+                        <p class="text-sm">（现场→HSE→IC→外部单位）</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
+                        <p class="font-bold">附录 D：隧道平面与撤离示意图</p>
+                        <p class="text-sm">（逃生路线/避难硐室/集合点）</p>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Footer -->
+            <footer class="mt-12 pt-6 border-t border-gray-300 text-center text-sm text-gray-500">
+                <p>&copy; [填写年份] CCCC–CWE Ulu Padas Project. All Rights Reserved.</p>
+                <p>本文件为受控文件，最终解释权归 Section 2 项目部所有。</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- JavaScript for Icon Initialization -->
+    <script>
+        // 初始化 Lucide Icons
+        lucide.createIcons();
+
+        // 导航激活状态逻辑
+        const sections = document.querySelectorAll('.report-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            // 找到当前在视口中的章节
+            sections.forEach(section => {
+                // 优化：使用getBoundingClientRect获取相对于视口的位置
+                const rect = section.getBoundingClientRect();
+                // 只要章节的顶部进入视口且位于顶部 150px 以下（即在主体阅读区），就认为是当前章节
+                if (rect.top <= 150 && rect.bottom > 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            // 如果滚动到最顶部，将第一个链接设为激活
+            if (window.scrollY < sections[0].offsetTop - 150) {
+                 current = sections[0].getAttribute('id');
+            }
+
+
+            navLinks.forEach(link => {
+                // 清除所有链接的激活状态
+                link.classList.remove('active');
+                
+                // 检查链接的 href 是否包含当前的章节 ID
+                if (link.href.includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
